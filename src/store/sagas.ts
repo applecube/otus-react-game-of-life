@@ -1,7 +1,6 @@
-import { all, put, takeLatest, delay, take } from "typed-redux-saga";
+import { all, put, delay, take } from "typed-redux-saga";
 import { slices } from "./slices";
 
-import { Action } from '@redux-saga/types';
 import { GameActions } from '../types/Store.types'
 
 export function* delayedAction(): any {

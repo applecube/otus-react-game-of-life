@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, MouseEventHandler } from 'react';
+import React, { useCallback, MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 
