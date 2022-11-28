@@ -11,9 +11,13 @@ export interface GameState {
 }
 
 export interface FullState {
-	gameSlice: GameState,
-	gameReducer: GameState,
 	game: GameState
 }
 
-export type GameActions = 'play' | 'stop' | 'changeDimensions' | 'speedUp' | 'speedDown' | 'reset';
+export const gameActions = ['play', 'stop', 'changeDimensions', 'speedUp', 'speedDown', 'reset'] as const;
+
+export const gameSagaActions = ['saga-action', 'saga-speed-interval'] as const;
+
+export type GameActions = typeof gameActions[number];
+
+export type GameSagaActions = typeof gameSagaActions[number];

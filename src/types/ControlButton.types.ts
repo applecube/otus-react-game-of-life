@@ -1,8 +1,8 @@
 import React from 'react';
-import { GameActions } from './Store.types';
+import { GameActions, GameSagaActions } from './Store.types';
 
 export interface ButtonProps {
-	action: GameActions,
+	action: GameActions | GameSagaActions,
 	name: string
-	// setIsPlaying?: React.Dispatch<React.SetStateAction<boolean>>
+	sagaParams?: Object
 }

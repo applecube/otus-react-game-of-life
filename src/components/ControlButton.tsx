@@ -6,11 +6,13 @@ import { slices } from '../store/slices';
 import { useGameSelector } from '../hooks/storeHooks';
 
 import { ButtonProps } from '../types/ControlButton.types';
+import { GameActions, gameActions, GameSagaActions, gameSagaActions } from '../types/Store.types';
 
 const ControlButton: React.FC<ButtonProps> = (props) => {
 	const {
 		action,
-		name
+		name,
+		sagaParams
 	} = props || {};
 
 	const gameState = useGameSelector();
@@ -21,31 +23,17 @@ const ControlButton: React.FC<ButtonProps> = (props) => {
 		console.log('I did nothing');
 	}, []);
 
-	let onClick: MouseEventHandler = action
-		? () => dispatch(slices[action](gameState))//dispatch({type: action, payload: gameState})
-		: doNothing;
+	let onClick: MouseEventHandler = doNothing;
 
-	// switch(action) {
-	// 	case 'reset':
-	// 		onClick = reset;
-	// 		btnText = 'Reset';
-	// 		break;
-	// 	case 'play':
-	// 		onClick = play;
-	// 		btnText = 'Play';
-	// 		break;
-	// 	case 'stop':
-	// 		onClick = stop;
-	// 		btnText = 'Stop';
-	// 		break;
-	// 	default:
-	// 		onClick = doNothing;
-	// 		btnText = 'Do nothing';
-	// 		break;
-	// }
+	if(gameActions.includes(action as GameActions)) {
+		onClick = () => dispatch(slices[action as GameActions](gameState));//dispatch({type: action, payload: gameState})
+	}
+	else if(gameSagaActions.includes(action as GameSagaActions)) {
+		onClick = () => dispatch({ type: action, payload: sagaParams });
+	}
 
 	return (
-		<Button onClick={onClick}>{name}</Button>
+		<Button variant="contained" onClick={onClick}>{name}</Button>
 	);
 }
 
